@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Markers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class MarkersController extends Controller
 {
@@ -49,5 +50,20 @@ class MarkersController extends Controller
         $marker->delete();
 
         return response()->json('The marker successfully deleted');
+    }
+
+    /**
+     * Get a validator for an incoming markers request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:100'],
+            'latitude' => ['required', 'string', 'max:15',],
+            'longitude' => ['required', 'string', 'max:15',],
+        ]);
     }
 }

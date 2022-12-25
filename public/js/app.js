@@ -19406,8 +19406,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       e.preventDefault();
-      this.$axios.get('/sanctum/csrf-cookie').then(function (response) {
-        _this.$axios.post('/api/logout').then(function (response) {
+      this.$axios.get("/sanctum/csrf-cookie").then(function (response) {
+        _this.$axios.post("/api/logout").then(function (response) {
           if (response.data.success) {
             window.location.href = "/";
           } else {
@@ -19416,6 +19416,8 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function (error) {
           console.error(error);
         });
+      })["catch"](function (error) {
+        console.error(error);
       });
     }
   }
@@ -19444,14 +19446,16 @@ __webpack_require__.r(__webpack_exports__);
     addMarker: function addMarker() {
       var _this = this;
 
-      this.$axios.get('/sanctum/csrf-cookie').then(function (response) {
-        _this.$axios.post('/api/markers/add', _this.marker).then(function (response) {
+      this.$axios.get("/sanctum/csrf-cookie").then(function (response) {
+        _this.$axios.post("/api/markers/add", _this.marker).then(function (response) {
           _this.$router.push({
-            name: 'markers'
+            name: "markers"
           });
         })["catch"](function (error) {
           console.error(error);
         });
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   },
@@ -19486,26 +19490,30 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.$axios.get('/sanctum/csrf-cookie').then(function (response) {
+    this.$axios.get("/sanctum/csrf-cookie").then(function (response) {
       _this.$axios.get("/api/markers/edit/".concat(_this.$route.params.id)).then(function (response) {
         _this.marker = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
+    })["catch"](function (error) {
+      console.log(error);
     });
   },
   methods: {
     updateMarker: function updateMarker() {
       var _this2 = this;
 
-      this.$axios.get('/sanctum/csrf-cookie').then(function (response) {
+      this.$axios.get("/sanctum/csrf-cookie").then(function (response) {
         _this2.$axios.post("/api/markers/update/".concat(_this2.$route.params.id), _this2.marker).then(function (response) {
           _this2.$router.push({
-            name: 'markers'
+            name: "markers"
           });
         })["catch"](function (error) {
           console.error(error);
         });
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   },
@@ -19540,19 +19548,21 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.$axios.get('/sanctum/csrf-cookie').then(function (response) {
-      _this.$axios.get('/api/markers').then(function (response) {
+    this.$axios.get("/sanctum/csrf-cookie").then(function (response) {
+      _this.$axios.get("/api/markers").then(function (response) {
         _this.markers = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
+    })["catch"](function (error) {
+      console.log(error);
     });
   },
   methods: {
     deleteMarker: function deleteMarker(id) {
       var _this2 = this;
 
-      this.$axios.get('/sanctum/csrf-cookie').then(function (response) {
+      this.$axios.get("/sanctum/csrf-cookie").then(function (response) {
         _this2.$axios["delete"]("/api/markers/delete/".concat(id)).then(function (response) {
           var i = _this2.markers.map(function (item) {
             return item.id;
@@ -19563,6 +19573,8 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function (error) {
           console.error(error);
         });
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   },
@@ -19679,6 +19691,8 @@ var DEFAULT_CENTER = [58.604492, 49.656254];
       })["catch"](function (error) {
         console.log(error);
       });
+    })["catch"](function (error) {
+      console.log(error);
     });
   },
   mounted: function mounted() {
@@ -19706,6 +19720,8 @@ var DEFAULT_CENTER = [58.604492, 49.656254];
         })["catch"](function (error) {
           console.error(error);
         });
+      })["catch"](function (error) {
+        console.log(error);
       });
     },
     updateMarker: function updateMarker(id) {
@@ -19719,6 +19735,8 @@ var DEFAULT_CENTER = [58.604492, 49.656254];
         })["catch"](function (error) {
           console.error(error);
         });
+      })["catch"](function (error) {
+        console.log(error);
       });
     },
     deleteMarker: function deleteMarker(id) {
@@ -19735,6 +19753,8 @@ var DEFAULT_CENTER = [58.604492, 49.656254];
           })["catch"](function (error) {
             console.error(error);
           });
+        })["catch"](function (error) {
+          console.log(error);
         });
       } else {
         console.log("wimp");
@@ -20342,7 +20362,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $options.deleteMarker(marker.id);
       }
-    }, "Delete", 8
+    }, " Delete ", 8
     /* PROPS */
     , ["onClick"])])])]);
   }), 128
@@ -20353,7 +20373,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return _this.$router.push('/markers/add');
     })
-  }, "Add marker")]);
+  }, " Add marker ")]);
 }
 
 /***/ }),

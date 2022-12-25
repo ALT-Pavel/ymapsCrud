@@ -101,16 +101,21 @@ export default {
       this.name = window.Laravel.user.name;
       this.id = window.Laravel.user.id;
     }
-    this.$axios.get("/sanctum/csrf-cookie").then((responce) => {
-      this.$axios
-        .get("/api/markers/")
-        .then((responce) => {
-          this.markers = responce.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    });
+    this.$axios
+      .get("/sanctum/csrf-cookie")
+      .then((responce) => {
+        this.$axios
+          .get("/api/markers/")
+          .then((responce) => {
+            this.markers = responce.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   },
   mounted() {
     this.showMap = true;
@@ -136,42 +141,57 @@ export default {
       console.log(id);
     },
     addMarker() {
-      this.$axios.get("/sanctum/csrf-cookie").then((response) => {
-        this.$axios
-          .post("/api/markers/add", this.marker)
-          .then((response) => {
-            this.$router.push({ name: "markers" });
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
-      });
-    },
-    updateMarker(id) {
-      this.$axios.get("/sanctum/csrf-cookie").then((response) => {
-        this.$axios
-          .get(`/api/markers/edit/${id}`, this.marker)
-          .then((response) => {
-            this.$router.push({ name: "markers" });
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
-      });
-    },
-    deleteMarker(id) {
-      if (confirm("Are you sure?")) {
-        this.$axios.get("/sanctum/csrf-cookie").then((response) => {
+      this.$axios
+        .get("/sanctum/csrf-cookie")
+        .then((response) => {
           this.$axios
-            .delete(`/api/markers/delete/${id}`)
+            .post("/api/markers/add", this.marker)
             .then((response) => {
-              let i = this.markers.map((item) => item.id).indexOf(id);
-              this.markers.splice(i, 1);
+              this.$router.push({ name: "markers" });
             })
             .catch(function (error) {
               console.error(error);
             });
+        })
+        .catch(function (error) {
+          console.log(error);
         });
+    },
+    updateMarker(id) {
+      this.$axios
+        .get("/sanctum/csrf-cookie")
+        .then((response) => {
+          this.$axios
+            .get(`/api/markers/edit/${id}`, this.marker)
+            .then((response) => {
+              this.$router.push({ name: "markers" });
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    deleteMarker(id) {
+      if (confirm("Are you sure?")) {
+        this.$axios
+          .get("/sanctum/csrf-cookie")
+          .then((response) => {
+            this.$axios
+              .delete(`/api/markers/delete/${id}`)
+              .then((response) => {
+                let i = this.markers.map((item) => item.id).indexOf(id);
+                this.markers.splice(i, 1);
+              })
+              .catch(function (error) {
+                console.error(error);
+              });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       } else {
         console.log("wimp");
       }
